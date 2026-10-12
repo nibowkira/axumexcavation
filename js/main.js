@@ -244,6 +244,8 @@ function initScrollSpy() {
   const jumpSectionIds = ['sec-01', 'sec-02', 'sec-03', 'sec-04', 'sec-05', 'sec-06', 'sec-07', 'sec-08'];
   const jumpSections = jumpSectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
+  if (!mainSections.length && !jumpSections.length) return;
+
   function updateScrollSpy() {
     const scrollPos = window.scrollY + 120;
 
@@ -365,49 +367,50 @@ function initProjectFilters() {
 }
 
 /* ==========================================================================
-   5. EXCAVATION VOLUME & FLEET ESTIMATOR MODAL
+   5. GEOTECHNICAL EXCAVATION VOLUME & FLEET ESTIMATOR MODAL
+   Includes Soil Bulking/Swell Factors, Haulage Cycles & WhatsApp Dispatch
    ========================================================================== */
 function initQuoteCalculator() {
   if (!document.getElementById('quoteModal')) {
     const modalHTML = `
-      <div class="modal-overlay" id="quoteModal">
+      <div class="modal-overlay" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="calcModalTitle">
         <div class="calc-modal">
           <div class="modal-header">
-            <h3 class="modal-title" data-i18n="calc_title">Excavation Volume & Fleet Estimator</h3>
+            <h3 class="modal-title" id="calcModalTitle" data-i18n="calc_title">Excavation Volume & Fleet Estimator</h3>
             <button class="modal-close" id="closeQuoteModal" aria-label="Close modal">&times;</button>
           </div>
           <div class="modal-body">
             <p style="font-size:0.875rem; color:#64748b; margin-bottom:18px;">
-              Input your estimated earthmoving volume and ground geology to receive indicative machine class suggestions and production estimates for your excavation project.
+              Input your estimated in-situ earthmoving volume, target completion timeframe, and ground geology. Our geotechnical algorithm calculates bulking swell factors, daily production targets, and fleet capacity requirements.
             </p>
             <form id="calcForm">
               <div class="form-grid-2">
                 <div class="form-group">
                   <label class="form-label">Excavation Scope</label>
                   <select class="form-select" id="calcScope" required>
-                    <option value="land">Land Excavation & Rock Ripping</option>
-                    <option value="foundation">Foundation & Deep Basement Digging</option>
-                    <option value="site_prep">Land Clearing & Site Preparation</option>
-                    <option value="grading">Land Leveling & Precision Grading</option>
-                    <option value="road">Road Earthworks & Subgrade Cutting</option>
-                    <option value="trenching">Trenching & Drainage Excavation</option>
-                    <option value="removal">Soil Excavation & Removal</option>
-                    <option value="bulk">Bulk Earthmoving</option>
+                    <option value="Land Excavation & Rock Ripping">Land Excavation & Rock Ripping</option>
+                    <option value="Foundation & Deep Basement Digging">Foundation & Deep Basement Digging</option>
+                    <option value="Land Clearing & Site Preparation">Land Clearing & Site Preparation</option>
+                    <option value="Land Leveling & Precision Grading">Land Leveling & Precision Grading</option>
+                    <option value="Road Earthworks & Subgrade Cutting">Road Earthworks & Subgrade Cutting</option>
+                    <option value="Trenching & Drainage Excavation">Trenching & Drainage Excavation</option>
+                    <option value="Soil Excavation & Removal">Soil Excavation & Removal</option>
+                    <option value="Bulk Earthmoving">Bulk Earthmoving</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label class="form-label">Soil / Geology Profile</label>
                   <select class="form-select" id="calcGeology" required>
-                    <option value="basalt">Hard Volcanic Basalt (Rock Ripping/Breaker Required)</option>
-                    <option value="clay">Expansive Black Cotton Clay (Substitution)</option>
-                    <option value="red_clay">Red Highland Clay / Sandy Soil</option>
-                    <option value="alluvial">Riverbed Silt & Gravel</option>
+                    <option value="basalt">Hard Volcanic Basalt Rock (+50% Swell / Breaker Needed)</option>
+                    <option value="clay">Expansive Black Cotton Clay (+30% Swell / Moisture Sensitive)</option>
+                    <option value="red_clay">Red Highland Clay / Sandy Loam (+20% Swell)</option>
+                    <option value="alluvial">Riverbed Silt & Gravel (+15% Swell)</option>
                   </select>
                 </div>
               </div>
               <div class="form-grid-2">
                 <div class="form-group">
-                  <label class="form-label">Estimated Volume (m³)</label>
+                  <label class="form-label">In-Situ Bank Volume (m³)</label>
                   <input type="number" class="form-input" id="calcVol" placeholder="e.g. 15000" min="200" value="12000" required>
                 </div>
                 <div class="form-group">
@@ -416,33 +419,47 @@ function initQuoteCalculator() {
                 </div>
               </div>
               <button type="submit" class="btn-primary" style="width:100%; justify-content:center; margin-top:8px;">
-                Calculate Excavation Estimates
+                Calculate Earthwork & Fleet Requirements
               </button>
             </form>
 
             <div class="calc-result-box" id="calcResults">
               <h4 style="font-family:var(--font-display); font-size:1.125rem; text-transform:uppercase; color:#78350f;">
-                Indicative Fleet Deployment Guide
+                Indicative Fleet Deployment & Production Analysis
               </h4>
-              <div class="calc-result-grid">
+              <div class="calc-result-grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
                 <div class="calc-stat">
                   <span class="calc-stat-val" id="resDailyRate">1,200 m³</span>
-                  <span class="calc-stat-lbl">Target Daily Cut</span>
+                  <span class="calc-stat-lbl">Target Daily Cut (In-Situ)</span>
+                </div>
+                <div class="calc-stat">
+                  <span class="calc-stat-val" id="resLooseVol">18,000 m³</span>
+                  <span class="calc-stat-lbl">Bulked Loose Volume</span>
                 </div>
                 <div class="calc-stat">
                   <span class="calc-stat-val" id="resExcavators">2x Heavy Units</span>
-                  <span class="calc-stat-lbl">Excavator Class</span>
+                  <span class="calc-stat-lbl">Primary Excavators</span>
                 </div>
                 <div class="calc-stat">
                   <span class="calc-stat-val" id="resHaulers">4-6 Trucks</span>
-                  <span class="calc-stat-lbl">Dump Truck Support</span>
+                  <span class="calc-stat-lbl">16m³ Tipper Cycles/Day</span>
                 </div>
               </div>
               <div style="margin-top:14px; padding-top:12px; border-top:1px dashed #f59e0b; font-size:0.8125rem; color:#78350f;">
-                <strong>Excavation Note:</strong> <span id="resNote">Basalt formations require heavy rock breaker attachment or ripper dozer support.</span>
+                <strong>Geotechnical Note:</strong> <span id="resNote">Dense volcanic basalt requires heavy hydraulic rock breakers and ripper crawler support.</span>
               </div>
-              <a href="#contact" class="btn-quote" id="calcToQuoteBtn" style="display:inline-flex; margin-top:14px; width:100%; justify-content:center;">
-                Request Formal Excavation Quotation &rarr;
+              
+              <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;">
+                <a href="#" id="calcWhatsAppBtn" target="_blank" rel="noopener noreferrer" class="btn-primary" style="flex:1; justify-content:center; background:#10b981; border-color:#059669; color:#fff; text-decoration:none;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
+                  Send Spec via WhatsApp
+                </a>
+                <button type="button" id="calcCopyBtn" class="btn-ghost" style="flex:1; justify-content:center; border-color:#d97706; color:#92400e;">
+                  Copy Full Specification
+                </button>
+              </div>
+              <a href="#contact" class="btn-quote" id="calcToQuoteBtn" style="display:inline-flex; margin-top:10px; width:100%; justify-content:center;">
+                Proceed to Formal Tender Form &rarr;
               </a>
             </div>
           </div>
@@ -456,87 +473,200 @@ function initQuoteCalculator() {
   const closeBtn = document.getElementById('closeQuoteModal');
   const calcForm = document.getElementById('calcForm');
   const calcToQuoteBtn = document.getElementById('calcToQuoteBtn');
+  const calcWhatsAppBtn = document.getElementById('calcWhatsAppBtn');
+  const calcCopyBtn = document.getElementById('calcCopyBtn');
+
+  let currentEstimateSummary = '';
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function openModal() {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    const firstInput = modal.querySelector('input, select');
+    if (firstInput) firstInput.focus();
+  }
 
   document.querySelectorAll('[data-open-quote-calc]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      modal.classList.add('active');
+      openModal();
     });
   });
 
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-  }
-
-  if (calcToQuoteBtn) {
-    calcToQuoteBtn.addEventListener('click', () => {
-      modal.classList.remove('active');
-    });
-  }
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (calcToQuoteBtn) calcToQuoteBtn.addEventListener('click', closeModal);
 
   modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.classList.remove('active');
+    if (e.target === modal) closeModal();
+  });
+
+  // Accessible keyboard ESC close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
   });
 
   if (calcForm) {
     calcForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const scope = document.getElementById('calcScope').value;
       const vol = parseFloat(document.getElementById('calcVol').value) || 12000;
       const days = parseFloat(document.getElementById('calcDays').value) || 10;
-      const geology = document.getElementById('calcGeology').value;
+      const geologyKey = document.getElementById('calcGeology').value;
 
-      const dailyRate = Math.round(vol / days);
-      const excCount = Math.max(1, Math.ceil(dailyRate / 800));
-      const haulCount = Math.max(2, Math.ceil(excCount * 3));
+      // Geotechnical Swell Factors
+      const swellMultipliers = {
+        basalt: 1.50,
+        clay: 1.30,
+        red_clay: 1.20,
+        alluvial: 1.15
+      };
 
-      let note = "Standard bulk cut and fill leveling with compactor support.";
-      if (geology === 'basalt') {
-        note = "Dense volcanic rock requires heavy crawler excavator with hydraulic hammer or ripper dozer.";
-      } else if (geology === 'clay') {
-        note = "Black cotton soil requires moisture management and selected granular fill replacement.";
+      const swellNotes = {
+        basalt: "Basalt rock formations require crawler excavators with hydraulic rock breakers or heavy ripper dozers.",
+        clay: "Expansive black cotton soil requires moisture control, deep benching, and granular fill substitution.",
+        red_clay: "Standard highland red soil suitable for mass bucket excavation and perimeter batter grading.",
+        alluvial: "Silt and river gravel require dewatering management and stable slope trench support."
+      };
+
+      const geologyNames = {
+        basalt: "Hard Volcanic Basalt Rock (+50% Bulking)",
+        clay: "Expansive Black Cotton Clay (+30% Bulking)",
+        red_clay: "Red Highland Clay / Sandy Loam (+20% Bulking)",
+        alluvial: "Riverbed Silt & Gravel (+15% Bulking)"
+      };
+
+      const multiplier = swellMultipliers[geologyKey] || 1.25;
+      const looseVol = Math.round(vol * multiplier);
+      const dailyBankRate = Math.round(vol / days);
+      const dailyLooseRate = Math.round(looseVol / days);
+
+      // Sizing plant: CAT 336 / 35-ton moves ~750-900 m3 bank volume / 10-hr shift
+      const excCount = Math.max(1, Math.ceil(dailyBankRate / 750));
+      // Tipper truck: standard 16m3 capacity
+      const dailyTruckCycles = Math.ceil(dailyLooseRate / 16);
+      const truckFleet = Math.max(2, Math.ceil(excCount * 3));
+
+      document.getElementById('resDailyRate').textContent = `${dailyBankRate.toLocaleString()} m³/day`;
+      document.getElementById('resLooseVol').textContent = `${looseVol.toLocaleString()} m³`;
+      document.getElementById('resExcavators').textContent = `${excCount}x Heavy Plant`;
+      document.getElementById('resHaulers').textContent = `~${dailyTruckCycles} trips/day (${truckFleet} trucks)`;
+      document.getElementById('resNote').textContent = swellNotes[geologyKey];
+
+      currentEstimateSummary = `*AXUM EXCAVATION — ESTIMATE INQUIRY*\n` +
+        `• Scope: ${scope}\n` +
+        `• Geology: ${geologyNames[geologyKey]}\n` +
+        `• In-situ Bank Volume: ${vol.toLocaleString()} m³\n` +
+        `• Bulked Loose Volume: ${looseVol.toLocaleString()} m³\n` +
+        `• Target Timeline: ${days} days (${dailyBankRate.toLocaleString()} m³/day)\n` +
+        `• Recommended Plant: ${excCount}x Excavator(s), ~${truckFleet}x Tipper Trucks\n\n` +
+        `Please furnish an official mobilization and plant hire quotation.`;
+
+      if (calcWhatsAppBtn) {
+        const encoded = encodeURIComponent(currentEstimateSummary);
+        calcWhatsAppBtn.href = `https://wa.me/251975753773?text=${encoded}`;
       }
 
-      document.getElementById('resDailyRate').textContent = `${dailyRate.toLocaleString()} m³/day`;
-      document.getElementById('resExcavators').textContent = `${excCount}x Excavator(s)`;
-      document.getElementById('resHaulers').textContent = `${haulCount}x Dump Trucks`;
-      document.getElementById('resNote').textContent = note;
-
       document.getElementById('calcResults').classList.add('active');
+    });
+  }
+
+  if (calcCopyBtn) {
+    calcCopyBtn.addEventListener('click', () => {
+      if (!currentEstimateSummary) return;
+      navigator.clipboard.writeText(currentEstimateSummary).then(() => {
+        showToast("Specification copied to clipboard!");
+      }).catch(() => {
+        showToast("Unable to copy. Please use the WhatsApp button.");
+      });
     });
   }
 }
 
 /* ==========================================================================
-   6. EXCAVATION QUOTATION FORM HANDLER
+   6. EXCAVATION TENDER & QUOTATION FORM HANDLER
+   Includes Ethiopian Phone Validation, Anti-Spam Honeypot, Local Persistence & WhatsApp Fallback
    ========================================================================== */
 function initTenderForm() {
   const form = document.getElementById('tenderInquiryForm');
   if (!form) return;
 
+  // Add honeypot if not present
+  if (!form.querySelector('[name="_gotcha"]')) {
+    const honeypot = document.createElement('input');
+    honeypot.type = 'text';
+    honeypot.name = '_gotcha';
+    honeypot.style.display = 'none';
+    honeypot.tabIndex = -1;
+    honeypot.autocomplete = 'off';
+    form.appendChild(honeypot);
+  }
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const fullName = form.querySelector('[name="full_name"]').value;
-    const phone = form.querySelector('[name="phone"]').value;
+    // Honeypot spam trap
+    const gotcha = form.querySelector('[name="_gotcha"]');
+    if (gotcha && gotcha.value.trim() !== '') {
+      return; // Silent fail for automated spam bots
+    }
+
+    const fullName = form.querySelector('[name="full_name"]').value.trim();
+    const phoneInput = form.querySelector('[name="phone"]').value.trim();
     const service = form.querySelector('[name="service_required"]').value;
     const region = form.querySelector('[name="region"]').value;
+    const city = form.querySelector('[name="city"]') ? form.querySelector('[name="city"]').value.trim() : '';
+    const vol = form.querySelector('[name="volume"]') ? form.querySelector('[name="volume"]').value.trim() : '';
 
-    if (!fullName || !phone) {
-      showToast('Please enter your name and phone number.');
+    if (!fullName || !phoneInput) {
+      showToast('Please enter your full name and phone number.');
       return;
     }
 
+    // Ethiopian Phone Validation: Accepts +251 9..., 251 9..., 09..., 9..., +251 7..., 07...
+    const cleanPhone = phoneInput.replace(/[\s\-\(\)]/g, '');
+    const ethPhoneRegex = /^(\+?251|0)?[79]\d{8}$/;
+
+    if (!ethPhoneRegex.test(cleanPhone)) {
+      showToast('Please enter a valid Ethiopian phone number (e.g., 911 234 567 or +251 911 234 567).');
+      const phoneEl = form.querySelector('[name="phone"]');
+      if (phoneEl) phoneEl.focus();
+      return;
+    }
+
+    const refNumber = 'AXUM-TDR-' + Math.floor(1000 + Math.random() * 9000);
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = 'Reviewing Excavation Specifications...';
+    submitBtn.innerHTML = 'Registering Excavation Tender...';
     submitBtn.disabled = true;
+
+    // Persist inquiry locally
+    try {
+      const stored = JSON.parse(localStorage.getItem('axum_inquiries') || '[]');
+      stored.unshift({
+        refNumber,
+        fullName,
+        cleanPhone,
+        service,
+        region,
+        city,
+        vol,
+        timestamp: new Date().toISOString()
+      });
+      localStorage.setItem('axum_inquiries', JSON.stringify(stored.slice(0, 10)));
+    } catch (_) {}
 
     setTimeout(() => {
       submitBtn.innerHTML = originalText;
       submitBtn.disabled = false;
       form.reset();
-      showToast(`Thank you, ${fullName}. Your excavation project inquiry for ${service || 'earthmoving'} in ${region || 'Ethiopia'} has been received. Our team will contact you directly to discuss the site parameters and furnish a detailed quotation.`);
-    }, 1200);
+      showToast(`Inquiry [${refNumber}] registered successfully! Our project dispatch team for ${region || 'Ethiopia'} will call you at ${cleanPhone} to arrange technical site review.`);
+    }, 1100);
   });
 }
 
@@ -549,5 +679,5 @@ function showToast(message) {
   }
   toast.textContent = message;
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 6000);
+  setTimeout(() => toast.classList.remove('show'), 7000);
 }

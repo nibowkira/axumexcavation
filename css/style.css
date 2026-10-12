@@ -114,6 +114,30 @@ body.amharic-mode {
   font-family: var(--font-amharic);
 }
 
+body.amharic-mode h1,
+body.amharic-mode h2,
+body.amharic-mode h3,
+body.amharic-mode h4,
+body.amharic-mode h5,
+body.amharic-mode h6,
+body.amharic-mode .brand-name,
+body.amharic-mode .nav-link,
+body.amharic-mode .btn-primary,
+body.amharic-mode .btn-ghost,
+body.amharic-mode .btn-quote,
+body.amharic-mode .btn-quote-pill,
+body.amharic-mode .subpage-title,
+body.amharic-mode .hero-title,
+body.amharic-mode .tender-title,
+body.amharic-mode .desk-title,
+body.amharic-mode .discipline-title,
+body.amharic-mode .project-card-title,
+body.amharic-mode .fleet-item-title,
+body.amharic-mode .modal-title {
+  font-family: var(--font-amharic) !important;
+  letter-spacing: normal !important;
+}
+
 a {
   color: inherit;
   text-decoration: none;
