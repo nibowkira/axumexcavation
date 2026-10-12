@@ -989,17 +989,8 @@ button, input, select, textarea {
   margin-top: 4px;
 }
 
-/* ==========================================================================
-   SERVICES STICKY JUMP-TO BAR
-   ========================================================================== */
 .jump-to-bar {
-  background: #181d24;
-  color: #ffffff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  position: sticky;
-  top: var(--header-height);
-  z-index: 900;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: none !important;
 }
 
 .jump-to-inner {
@@ -2509,30 +2500,14 @@ textarea:focus-visible {
     transform: translateY(-1px) !important;
   }
 
-  /* TIER 3: MAIN HEADER (BRAND + HAMBURGER + INDUSTRIAL HAZARD STRIPE) */
+  /* TIER 3: MAIN HEADER (BRAND + HAMBURGER) */
   .main-header {
     background: #080c13 !important; /* Deep dark industrial surface matching screenshot */
-    border-bottom: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     position: sticky !important;
     top: 0 !important;
     z-index: 1000 !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
-  }
-
-  /* Authentic Construction Hazard Caution Tape Border */
-  .main-header::after {
-    content: '' !important;
-    display: block !important;
-    width: 100% !important;
-    height: 5px !important;
-    background: repeating-linear-gradient(
-      -45deg,
-      #e59a00 0,
-      #e59a00 12px,
-      #0e141f 12px,
-      #0e141f 24px
-    ) !important;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
   }
 
   .header-inner {
