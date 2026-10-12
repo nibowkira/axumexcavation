@@ -102,12 +102,12 @@ p {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 600; /* Crisp architectural semi-bold instead of heavy black */
+  font-weight: 500; /* Light, architectural header styling */
   letter-spacing: 0.02em;
 }
 
 strong, b {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 body.amharic-mode {
@@ -139,7 +139,7 @@ button, input, select, textarea {
   background: var(--color-primary);
   color: #000;
   padding: 10px 18px;
-  font-weight: 600;
+  font-weight: 500;
   z-index: 99999;
   border-radius: var(--radius-sm);
   transition: top var(--transition-fast);
@@ -224,7 +224,7 @@ button, input, select, textarea {
 }
 .tag-bold {
   color: var(--color-hazard-yellow);
-  font-weight: 600;
+  font-weight: 500;
 }
 .tag-sub {
   color: #cbd5e1;
@@ -287,7 +287,7 @@ button, input, select, textarea {
   display: none; /* Appears only in mobile dispatch card */
 }
 .dispatch-phone {
-  font-weight: 600;
+  font-weight: 500;
   color: #f8fafc;
 }
 
@@ -307,7 +307,7 @@ button, input, select, textarea {
 .top-bar-cta {
   background: var(--color-primary);
   color: #111827;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.72rem;
   padding: 4px 10px;
   border-radius: var(--radius-sm);
@@ -380,7 +380,7 @@ button, input, select, textarea {
 .brand-name {
   font-family: var(--font-display);
   font-size: 1.625rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
   color: #12161c;
   letter-spacing: 0.03em;
@@ -388,7 +388,7 @@ button, input, select, textarea {
 
 .brand-sub {
   font-size: 0.6875rem;
-  font-weight: 400;
+  font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--text-dark-muted);
@@ -407,7 +407,7 @@ button, input, select, textarea {
 .nav-link {
   font-family: var(--font-display);
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #334155;
@@ -513,7 +513,7 @@ button, input, select, textarea {
 .btn-quote {
   font-family: var(--font-display);
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   background: var(--color-primary);
@@ -553,7 +553,7 @@ button, input, select, textarea {
   border-bottom: 1px solid var(--border-light);
   padding: 10px 0;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-dark-muted);
@@ -667,7 +667,7 @@ button, input, select, textarea {
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(2.25rem, 5.5vw, 4.25rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 0.98;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -699,7 +699,7 @@ button, input, select, textarea {
 .btn-primary {
   font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   background: var(--color-primary);
@@ -825,7 +825,7 @@ button, input, select, textarea {
 .fleet-unit-name {
   font-family: var(--font-display);
   font-size: 1.375rem;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   color: #ffffff;
   letter-spacing: 0.02em;
@@ -836,7 +836,7 @@ button, input, select, textarea {
   color: #111827;
   font-family: var(--font-display);
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 5px 12px;
@@ -848,7 +848,7 @@ button, input, select, textarea {
   color: #ffffff;
   font-family: var(--font-display);
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 5px 12px;
@@ -900,7 +900,7 @@ button, input, select, textarea {
 .subpage-title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 0.98;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -934,7 +934,7 @@ button, input, select, textarea {
 .metric-box-val {
   font-family: var(--font-display);
   font-size: 2.125rem;
-  font-weight: 700;
+  font-weight: 500;
   color: #0f172a;
   line-height: 1;
   margin-bottom: 4px;
@@ -1000,7 +1000,7 @@ button, input, select, textarea {
 .contact-stat-num {
   font-family: var(--font-display);
   font-size: 2.25rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--color-primary);
   line-height: 1;
 }
@@ -1036,7 +1036,7 @@ button, input, select, textarea {
   gap: 6px;
   font-family: var(--font-display);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-hazard-yellow);
@@ -1110,7 +1110,7 @@ button, input, select, textarea {
 .discipline-num {
   font-family: var(--font-display);
   font-size: 4.5rem;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 0.85;
   color: var(--color-primary);
   margin-bottom: 8px;
@@ -1141,7 +1141,7 @@ button, input, select, textarea {
 .discipline-title {
   font-family: var(--font-display);
   font-size: 2.25rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1;
   text-transform: uppercase;
   color: #0f172a;
@@ -1166,7 +1166,7 @@ button, input, select, textarea {
 .tech-spec-title {
   font-family: var(--font-display);
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #0f172a;
@@ -1409,7 +1409,7 @@ button, input, select, textarea {
   color: #111827;
   font-family: var(--font-display);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 4px 10px;
@@ -1448,7 +1448,7 @@ button, input, select, textarea {
 .project-card-title {
   font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.15;
   text-transform: uppercase;
   color: #0f172a;
@@ -1490,7 +1490,7 @@ button, input, select, textarea {
 .project-stat-val {
   font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #0f172a;
   line-height: 1.1;
 }
@@ -1530,7 +1530,7 @@ button, input, select, textarea {
 .desk-title {
   font-family: var(--font-display);
   font-size: 1.375rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #0f172a;
@@ -1650,7 +1650,7 @@ button, input, select, textarea {
 .tender-title {
   font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #0f172a;
@@ -1747,7 +1747,7 @@ button, input, select, textarea {
 .btn-submit-tender {
   font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   background: var(--color-primary);
@@ -1807,7 +1807,7 @@ button, input, select, textarea {
 .fleet-item-title {
   font-family: var(--font-display);
   font-size: 1.625rem;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   color: #0f172a;
   margin-bottom: 8px;
@@ -1887,7 +1887,7 @@ button, input, select, textarea {
 .modal-title {
   font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -1936,7 +1936,7 @@ button, input, select, textarea {
 .calc-stat-val {
   font-family: var(--font-display);
   font-size: 1.625rem;
-  font-weight: 700;
+  font-weight: 500;
   color: #92400e;
 }
 
@@ -1982,7 +1982,7 @@ button, input, select, textarea {
 .footer-col-title {
   font-family: var(--font-display);
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #ffffff;
@@ -2085,7 +2085,7 @@ button, input, select, textarea {
   padding: 14px 24px;
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   box-shadow: var(--shadow-xl);
   z-index: 10000;
   opacity: 0;
@@ -2359,7 +2359,7 @@ textarea:focus-visible {
 
   .tag-bold {
     color: #e59a00 !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     letter-spacing: 0.04em !important;
     text-transform: uppercase !important;
     flex-shrink: 0 !important;
@@ -2467,7 +2467,7 @@ textarea:focus-visible {
 
   .dispatch-phone {
     font-size: 0.78rem !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     color: #ffffff !important;
     white-space: nowrap !important;
     line-height: 1.2 !important;
@@ -2509,7 +2509,7 @@ textarea:focus-visible {
     justify-content: center !important;
     background: var(--color-primary) !important;
     color: #111827 !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     font-size: 0.76rem !important;
     letter-spacing: 0.05em !important;
     text-transform: uppercase !important;
@@ -2566,7 +2566,7 @@ textarea:focus-visible {
   .brand-name {
     color: #ffffff !important;
     font-size: 1.45rem !important;
-    font-weight: 700 !important;
+    font-weight: 600 !important;
     letter-spacing: 0.04em !important;
     line-height: 1 !important;
   }
@@ -2574,7 +2574,7 @@ textarea:focus-visible {
   .brand-sub {
     color: #8da2be !important;
     font-size: 0.62rem !important;
-    font-weight: 400 !important;
+    font-weight: 300 !important;
     letter-spacing: 0.07em !important;
     display: flex !important;
     align-items: center !important;
